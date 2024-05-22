@@ -1,0 +1,57 @@
+﻿@model List<POC_Models.Models.Courses>
+
+@{
+    ViewBag.Title = "Courses";
+}
+<div>
+    <h2>Course's List</h2>
+</div>
+<div class="col-md-12">
+    <a href="@Url.Action("Add")" class="btn btn-success">Add Course</a>
+</div>
+
+&nbsp; &nbsp;
+
+<div class="row mt-3">
+    <div class="col-md-6">
+        <form asp-action="Search" asp-controller="Course" method="get" class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" name="searchString" placeholder="Search course">
+            </div>
+            <div>
+            <button type="submit" class="btn btn-primary ml-2">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @if (Model.Any())
+        {
+            @foreach (var course in Model)
+            {
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@course.CourseName</h5>
+                            <p class="card-text">Description: @course.CourseDescription</p>
+                            <a href="@Url.Action("Edit", new { id = course.Id_Courses })" class="btn btn-primary">Edit</a>
+                            <a href="@Url.Action("Details", new { id = course.Id_Courses })" class="btn btn-info">Details</a>
+                            <a href="@Url.Action("Delete", new { id = course.Id_Courses })" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-md-12 text-center">
+                <p>No courses found</p>
+            </div>
+        }
+    </div>
+    <div class="row mt-3">
+    </div>
+</div>
+   

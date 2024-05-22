@@ -1,0 +1,57 @@
+﻿@model POC_Models.Models.Courses
+
+@{
+    ViewBag.Title = "Course Details";
+}
+
+<h2>Course Details</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseName)
+        </dd>
+        <dt class="col-sm-2">
+            Description:
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.CourseDescription)
+        </dd>
+        
+        <dt class="col-sm-2">
+            Teachers:
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach (var teacherCourse in Model.teacherCourses)
+                {
+                    <li>
+                        @if (teacherCourse.Teacher != null)
+                        {
+                            @teacherCourse.Teacher.Name_Teacher
+                        }
+                    </li>
+                }
+            </ul>
+        </dd>
+        <dt class="col-sm-2">
+            Students:
+        </dt>
+        <dd class="col-sm-10">
+            <ul>
+                @foreach (var studentCourse in Model.studentCourses)
+                {
+                    <li>
+                        @if (studentCourse.StudentDetails != null)
+                        {
+                            @studentCourse.StudentDetails.firstName_Student @studentCourse.StudentDetails.lastName_Student
+                        }
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+</div>

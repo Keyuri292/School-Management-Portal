@@ -1,0 +1,68 @@
+﻿@model POC_Models.Models.ViewModel.StudentdetailsViewModel2
+
+<h1>@Model.StudentDetails.FullName's Details</h1>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-3">ID:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.Id_Student</dd> 
+
+        <dt class="col-sm-3">First Name:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.firstName_Student</dd>
+
+        <dt class="col-sm-3">Last Name:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.lastName_Student</dd>
+
+        <dt class="col-sm-3">Email:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.Email_Student</dd>
+
+        <dt class="col-sm-3">Phone:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.Phone_Student</dd>
+
+        <dt class="col-sm-3">Father's Name:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.FatherName_Student</dd>
+
+        <dt class="col-sm-3">Mother's Name:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.MotherName_Student</dd>
+
+        <dt class="col-sm-3">Full Name:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.FullName</dd>
+
+        <dt class="col-sm-3">Grade:</dt>
+        <dd class="col-sm-9">@Model.StudentDetails.Grade.Grade</dd>
+    </dl>
+</div>
+
+@* <div>
+    <h2>Courses:</h2>
+    <ul>
+        @foreach (var course in Model.StudentCourses)
+        {
+            <li>@course.CourseName</li>
+        }
+    </ul>
+</div> *@
+
+<div>
+    <h2>Courses:</h2>
+    <ul>
+        @foreach (var course in Model.StudentCourses)
+        {
+            <li>
+                @course.CourseName
+                <ul>
+                    @if (course.teacherCourses != null)
+                    {
+                        @foreach (var teacher in course.teacherCourses)
+                        {
+                            <li>@teacher.Teacher?.Name_Teacher</li>
+                        }
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>
+
+
+<a asp-action="Index" class="btn btn-primary">Back to List</a>

@@ -1,0 +1,70 @@
+﻿@model POC_Models.Models.ViewModel.CourseViewModel
+
+@{
+    ViewBag.Title = "Edit Course";
+}
+
+<div class="container">
+    <h2>Edit Course</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id_Course)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name_Course)
+            @Html.TextBoxFor(model => model.Name_Course, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Name_Course, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description_Course)
+            @Html.TextAreaFor(model => model.Description_Course, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Description_Course, "", new { @class = "text-danger" })
+        </div>
+        <h2>Select Students:</h2>
+        <div class="form-group">
+            <label>Select Students:</label>
+            @foreach (var student in Model.AvailableStudents)
+            {
+                <div class="checkbox">
+                    <label>
+                        @{
+                            bool isChecked = Model.SelectedStudentIds != null && Model.SelectedStudentIds.Contains(student.Id_Student);
+                        }
+                        <input type="checkbox" name="SelectedStudentIds" value="@student.Id_Student" @(isChecked ? "checked" : "") /> @student.firstName_Student @student.lastName_Student
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            <label>Select Teachers:</label>
+            @foreach (var teacher in Model.AvailableTeachers)
+            {
+                <div class="checkbox">
+                    <label>
+                        @{
+                            bool isChecked = Model.SelectedTeacherIds != null && Model.SelectedTeacherIds.Contains(teacher.Id_Teacher);
+                        }
+                        <input type="checkbox" name="SelectedTeacherIds" value="@teacher.Id_Teacher" @(isChecked ? "checked" : "") /> @teacher.Name_Teacher
+                    </label>
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function (event) {
+            var selectedStudents = document.querySelectorAll('input[name="SelectedStudentIds"]:checked');
+            var selectedTeachers = document.querySelectorAll('input[name="SelectedTeacherIds"]:checked');
+
+            if (selectedStudents.length === 0 || selectedTeachers.length === 0) {
+                event.preventDefault();
+                alert('Please select at least one student and one teacher.');
+            }
+        });
+    </script>
+}

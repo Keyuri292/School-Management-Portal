@@ -1,0 +1,47 @@
+﻿@model POC_Models.Models.ViewModel.TeacherViewModel
+
+@{
+    ViewBag.Title = "Add Teacher";
+}
+
+<div class="container">
+    <h2>Add Teacher</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name_Teacher)
+            @Html.TextBoxFor(model => model.Name_Teacher, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Name_Teacher, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email_Teacher)
+            @Html.TextBoxFor(model => model.Email_Teacher, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Email_Teacher, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone_Teacher)
+            @Html.TextBoxFor(model => model.Phone_Teacher, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(model => model.Phone_Teacher, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Select Courses:</label>
+            @foreach (var course in Model.AvailableCourses)
+            {
+                <div class="checkbox">
+                    <label>
+                        @{
+                            bool isChecked = Model.SelectedCourseIds.Contains(course.Id_Courses);
+                        }
+                        <input type="checkbox" name="SelectedCourseIds" value="@course.Id_Courses" @(isChecked ? "checked" : "") /> @course.CourseName
+                    </label>
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+    }
+</div>
+

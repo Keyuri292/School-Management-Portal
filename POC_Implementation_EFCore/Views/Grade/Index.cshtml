@@ -1,0 +1,45 @@
+﻿ @model List<POC_Models.Models.StudentDetails>
+
+<h1>Student List</h1>
+
+
+
+<form method="get" asp-action="Index" asp-controller="Grade">
+    <div class="d-flex justify-content-between align-items-center">
+        <label for="gradeSelect">Select Grade:</label>
+        @Html.DropDownList("gradeId", ViewBag.Grades as SelectList, "All", new { @class = "form-control", id = "gradeSelect" })
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+    
+</form>
+@if (ViewBag.NoStudents != null && (bool)ViewBag.NoStudents)
+{
+    <div class="text-center">
+        <p>There are no students of this particular grade.</p>
+    </div>
+}
+else{
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Grade</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id_Student</td>
+                <td>@student.FullName</td>
+                <td>@student.Email_Student</td>
+                <td>@student.Phone_Student</td>
+                <td>@student.Grade.Grade</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}

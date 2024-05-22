@@ -1,0 +1,55 @@
+﻿@model List<POC_Models.Models.Student>
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-black">Student List</h2>
+    </div>
+    <div class="col-3 text-left">
+        <a asp-action="Add" class="btn btn-primary form-control">Add New Students</a>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <form asp-controller="Student" asp-action="Index" method="get" class="input-group">
+                <input type="text" class="form-control" name="searchString" placeholder="Search student...">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            
+        </div>
+    </div>
+
+    
+</div>
+<div>
+   
+    <form method="post" asp-action="Edit" asp-controller="Student"> 
+
+
+<table class="table">
+    <thead>
+        <tr>
+            
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+          @foreach (var student in Model)
+                {
+                    <tr>
+                        
+                        <td>@student.Name_Student</td>
+                        <td>@student.Email_Student</td>
+                        <td>@student.Phone_Student</td>
+                        <td>
+                             <a class="btn btn-secondary" asp-controller="Student" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
+                             <a class="btn btn-primary" asp-controller="Student" asp-action="Details" asp-route-id="@student.Id">Details</a>                             
+                             <button type="submit" class="btn btn-danger" asp-controller="Student" asp-action="Delete" asp-route-id="@student.Id">Delete</button>
+                        </td>
+                    </tr>
+                }
+
+    </tbody>
+</table>
+</form> 
+</div>

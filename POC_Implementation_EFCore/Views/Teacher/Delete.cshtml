@@ -1,0 +1,42 @@
+﻿@model POC_Models.Models.Teacher
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Teacher</h2>
+
+<h3>Are you sure you want to delete this teacher?</h3>
+<div>
+    <h4>Teacher details:</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name_Teacher)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name_Teacher)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email_Teacher)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email_Teacher)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone_Teacher)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone_Teacher)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,0 +1,95 @@
+﻿@model POC_Models.Models.ViewModel.AddStudentCourseViewModel
+
+<h1> Add Stdent </h1>
+
+<form method="post" asp-action="Add" asp-controller="Student">
+
+    <div class="mt-3">
+        <label class="form-label">First Name</label>
+        <input type="text" class="form-control" asp-for="FirstName" required/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Last Name</label>
+        <input type="text" class="form-control" asp-for="LastName" required/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Email Id</label>
+        <input type="email" class="form-control" asp-for="Email" required/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Phone No.</label>
+        <input type="text" class="form-control" asp-for="Phone" required/>
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Father's Name</label>
+        <input type="text" class="form-control" asp-for="FatherName" />
+    </div>
+
+    <div class="mt-3">
+        <label class="form-label">Mother's Name</label>
+        <input type="text" class="form-control" asp-for="MotherName" required/>
+    </div>
+
+
+    
+    <div class="form-group">
+        <label>Courses</label>
+        @foreach (var course in Model.AvailableCourses)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="course_@course.Id_Courses" name="SelectedCourseIds" value="@course.Id_Courses">
+                <label class="form-check-label" for="course_@course.Id_Courses">@course.CourseName</label>
+            </div>
+            <div id="courseValidationMessage" class="text-danger" style="display: none;">Please select at least one course.</div>
+        }
+    </div>
+
+    @* <div class="mt-3">
+        <label class="form-label">Grade</label>
+        @Html.DropDownListFor(model => model.GradeId, new SelectList(ViewBag.Grades, "Id", "Grade"), "Select Grade", new { @class = "form-control" })
+        
+    </div> *@
+    <div class="mt-3">
+        <label class="form-label">Grade</label>
+        @Html.DropDownListFor(model => model.GradeId, new SelectList(ViewBag.Grades, "Id", "Grade"), "Select Grade", new { @class = "form-control", id = "gradeDropdown" })
+        <div id="gradeValidationMessage" class="text-danger" style="display: none;">Please select a grade.</div>
+    </div>
+
+    
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+</form>
+
+
+@section Scripts {
+    <script>
+        // Validate form before submission to ensure at least one checkbox is selected
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('form').addEventListener('submit', function (event) {
+                var checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+                if (checkboxes.length === 0) {
+                    event.preventDefault(); // Prevent form submission
+                    document.getElementById('courseValidationMessage').style.display = 'block'; // Display validation message
+                } else {
+                    document.getElementById('courseValidationMessage').style.display = 'none'; // Hide validation message if at least one checkbox is selected
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelector('form').addEventListener('submit', function (event) {
+                var gradeDropdown = document.getElementById('gradeDropdown');
+                if (gradeDropdown.selectedIndex === 0) {
+                    event.preventDefault(); // Prevent form submission
+                    document.getElementById('gradeValidationMessage').style.display = 'block'; // Display validation message
+                } else {
+                    document.getElementById('gradeValidationMessage').style.display = 'none'; // Hide validation message if a grade is selected
+                }
+            });
+        });
+    </script>
+}

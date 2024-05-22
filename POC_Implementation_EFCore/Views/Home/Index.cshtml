@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4 text-white fw-bold text-uppercase">Welcome</h1>
+</div>
+
+<style>
+    .circular-card {
+        background-color: #f8f9fa; 
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    }
+
+        .circular-card .card-body {
+            text-align: center;
+        }
+
+        .circular-card .card-icon {
+            width: 100px; 
+            height: 100px;
+        }
+
+    .card-title {
+        color: #007bff; 
+    }
+
+    .card-text {
+        color: #6c757d; 
+    }
+
+    body {
+        background: linear-gradient(90deg,#004080, #595e64);
+    }
+
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card circular-card h-100">
+                <div class="card-body">
+                    <img src="~/student.jpg" class="card-icon" alt="Student Icon">
+                    <h5 class="card-title">Students</h5>
+                    <p class="card-text">View all students registered in the system and their details.</p>
+                    <a href="@Url.Action("Index", "Student")" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card circular-card h-100">
+                <div class="card-body">
+                    <img src="~/grade.jpg" class="card-icon" alt="Grades Icon">
+                    <h5 class="card-title">Grades</h5>
+                    <p class="card-text">View grades of students for courses along with the teachers who teach that course and students enrolled in those courses.</p>
+                    <a href="@Url.Action("Index", "Grade")" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card circular-card h-100">
+                <div class="card-body">
+                    <img src="~/teacher.jpg" class="card-icon" alt="Teacher Icon">
+                    <h5 class="card-title">Teachers</h5>
+                    <p class="card-text">View all teachers registered in the system along with the courses they teach and students enrolled in those courses.</p>
+                    <a href="@Url.Action("Index", "Teacher")" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card circular-card h-100">
+                <div class="card-body">
+                    <img src="~/course.jpg" class="card-icon" alt="Course Icon">
+                    <h5 class="card-title">Courses</h5>
+                    <p class="card-text">View all courses offered in the system.</p>
+                    <a href="@Url.Action("Index", "Course")" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

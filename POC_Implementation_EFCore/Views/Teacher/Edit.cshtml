@@ -1,0 +1,58 @@
+﻿@model POC_Models.Models.ViewModel.TeacherViewModel
+
+@{
+    ViewBag.Title = "Edit Teacher";
+}
+
+<div class="container">
+    <h2>Edit Teacher</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Id_Teacher)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name_Teacher)
+            @Html.TextBoxFor(model => model.Name_Teacher, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Name_Teacher, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email_Teacher)
+            @Html.TextBoxFor(model => model.Email_Teacher, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Email_Teacher, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone_Teacher)
+            @Html.TextBoxFor(model => model.Phone_Teacher, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Phone_Teacher, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <label>Select Courses:</label>
+            @foreach (var course in Model.AvailableCourses)
+            {
+                <div class="checkbox">
+                    <label>
+                        @{
+                            bool isChecked = Model.SelectedCourseIds != null && Model.SelectedCourseIds.Contains(course.Id_Courses);
+                        }
+                        <input type="checkbox" name="SelectedCourseIds" value="@course.Id_Courses" @(isChecked ? "checked" : "") /> @course.CourseName
+                    </label>
+                </div>
+            }
+            <span id="courseValidation" class="text-danger"></span>
+        </div>
+        <input type="hidden" asp-for="AvailableCourses" />
+        <button type="submit" class="btn btn-primary" onclick="return validateForm()">Save</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary">Cancel</a>
+    }
+</div>
+
+<script>
+    function validateForm() {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedCourseIds"]:checked');
+        if (checkboxes.length === 0) {
+            document.getElementById('courseValidation').innerText = "Please select at least one course.";
+            return false;
+        }
+        return true;
+    }
+</script>
